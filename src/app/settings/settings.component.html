@@ -1,0 +1,12 @@
+<form style="margin-top: 30px;" [connectForm]="selectedFiatCurrency$ | async" fxLayout="column" fxLayoutGap="20px" [formGroup]="formGroup">
+    <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" fxLayoutAlign="center">
+        <mat-form-field fxFlex="33.33%" appearance="outline">
+            <mat-label>Select fiat currency</mat-label>
+            <mat-select formControlName="fiatCurrency" [compareWith]="compareFn" (selectionChange)="selectFiatCurrency()">
+                <mat-option *ngFor="let fiatCurrency of (fiatCurrencies$ | async)" [value]="fiatCurrency.fiatCurrency">
+                    {{fiatCurrency.fiatCurrency}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</form>

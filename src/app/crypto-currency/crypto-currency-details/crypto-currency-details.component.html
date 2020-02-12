@@ -1,0 +1,50 @@
+<div *ngIf="(isLoading$ | async)" style="text-align: center;">
+    <h1>Loading...</h1>
+</div>
+<div *ngIf="!(isLoading$ | async)" fxLayout="column" fxLayoutGap="20px" fxLayout.lt-md="column">
+    <div fxfxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px" fxLayoutAlign="center">
+        <p style="font-size: 18px;"> Crypto currency <b
+                style="font-size: 20px;">{{ (cryptoCurrency$ | async)?.symbol }}</b> details:</p>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px" fxLayoutAlign="center">
+        <mat-list>
+            <mat-list-item> Rank: <b> {{(cryptoCurrency$ | async)?.cmc_rank}} </b> </mat-list-item>
+            <mat-list-item> Name: <b> {{(cryptoCurrency$ | async)?.name}}</b> </mat-list-item>
+            <mat-list-item> Price: <b>
+                    {{(cryptoCurrency$ | async)?.quote[(selectedFiatCurrency$ | async)?.fiatCurrency]?.price}}</b>
+            </mat-list-item>
+            <mat-list-item>
+                24h volume: <b>
+                    {{(cryptoCurrency$ | async)?.quote[(selectedFiatCurrency$ | async)?.fiatCurrency]?.volume_24h}}</b>
+            </mat-list-item>
+            <mat-list-item>
+                Market cap: <b>
+                    {{(cryptoCurrency$ | async)?.quote[(selectedFiatCurrency$ | async)?.fiatCurrency]?.market_cap}}</b>
+            </mat-list-item>
+            <mat-list-item>
+                1h change: <b>
+                    {{(cryptoCurrency$ | async)?.quote[(selectedFiatCurrency$ | async)?.fiatCurrency]?.percent_change_1h}}</b>
+            </mat-list-item>
+            <mat-list-item>
+                24h change: <b>
+                    {{(cryptoCurrency$ | async)?.quote[(selectedFiatCurrency$ | async)?.fiatCurrency]?.percent_change_24h}}</b>
+            </mat-list-item>
+            <mat-list-item>
+                7d change: <b>
+                    {{(cryptoCurrency$ | async)?.quote[(selectedFiatCurrency$ | async)?.fiatCurrency]?.percent_change_7d}}</b>
+            </mat-list-item>
+            <mat-list-item>
+                Available supply: <b> {{(cryptoCurrency$ | async)?.circulating_supply}}</b>
+            </mat-list-item>
+            <mat-list-item>
+                Total supply: <b> {{(cryptoCurrency$ | async)?.total_supply}}</b>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <div fxFlex="100%" fxLayoutAlign="center"><button mat-flat-button color="accent" (click)="refresh()">
+                Refresh
+            </button>
+        </div>
+    </div>
+</div>
