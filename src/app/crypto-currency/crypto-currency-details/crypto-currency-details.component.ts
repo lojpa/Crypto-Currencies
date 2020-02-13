@@ -13,16 +13,16 @@ import { FiatCurrencyStoreSelectors } from 'src/app/settings/store';
 export class CryptoCurrencyDetailsComponent implements OnInit {
 
   isLoading$ = this.store$.select(CryptoCurrencyStoreSelectors.selectIsLoading);
-  cryptoCurrency$ = this.store$.select(CryptoCurrencyStoreSelectors.selectSelectedCryptoCurrency);
+  cryptoCurrency$ = this.store$.select(CryptoCurrencyStoreSelectors.selectCryptoCurrency);
   selectedFiatCurrency$ = this.store$.select(FiatCurrencyStoreSelectors.selectSelectedFiatCurrency);
 
   constructor(private store$: Store<CryptoCurrencyStoreState.State>) { }
 
   ngOnInit() {
-    this.store$.dispatch(new featureActions.GetCryptoCurrenciesRequestAction());
+    this.store$.dispatch(new featureActions.GetCryptoCurrencyByIdRequestAction());
   }
 
   refresh(): void {
-    this.store$.dispatch(new featureActions.GetCryptoCurrenciesRequestAction());
+    this.store$.dispatch(new featureActions.GetCryptoCurrencyByIdRequestAction());
   }
 }

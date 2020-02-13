@@ -49,4 +49,31 @@ export class CryptoCurrencyStoreEffects {
         alert('Get Crypto Currencies is failed');
        })
    );
+
+   @Effect() getCryptoCurrencyByIdRequestEffect$: Observable<Action> = this.actions$.pipe(
+    ofType<featureActions.GetCryptoCurrencyByIdRequestAction>(
+        featureActions.ActionTypes.GET_CRYPTO_CURRENCY_BY_ID_REQUEST),
+        withLatestFrom(
+            this.store$.select(RouterStoreSelectors.getRouterStoreState),
+            this.store$.select(FiatCurrencyStoreSelectors.selectSelectedFiatCurrency)
+        ),
+        // tslint:disable-next-line: max-line-length
+        exhaustMap(([action, routerState, selectedFiatCurrency]: [featureActions.GetCryptoCurrencyByIdRequestAction, RouterReducerState<RouterStateUrl>, FiatCurrency]) => {
+            return this.cryptoCurrencyService.getCryptoCurrencyById(selectedFiatCurrency.fiatCurrency, routerState.state.params['id'])
+            .pipe(map(result => new featureActions.GetCryptoCurrencyByIdSuccessAction({
+                cryptoCurrency: result.data[Object.keys(result.data)[0]]
+            })
+            ),
+            catchError(error =>
+                of(new featureActions.GetCryptoCurrenciesFailureAction({ error })))
+            );
+        })
+    );
+    @Effect({dispatch: false}) getCryptoCurrencyByIdFailureEffect$: Observable<Action> = this.actions$.pipe(
+    ofType<featureActions.GetCryptoCurrencyByIdFailureAction>(
+        featureActions.ActionTypes.GET_CRYPTO_CURRENCY_BY_ID_FAILURE),
+    tap(() => {
+        alert('Get Crypto Currency by id is failed');
+    })
+    );
 }

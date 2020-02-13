@@ -38,7 +38,7 @@ export function featureReducer(state = initialState, action: Actions): State {
             return {
                 ...state,
                 isLoading: false,
-                selectedCryptoCurrency: action.payload.cryptoCurrency
+                cryptoCurrency: action.payload.cryptoCurrency
             };
         }
         default: {

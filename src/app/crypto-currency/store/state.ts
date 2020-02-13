@@ -4,10 +4,12 @@ export interface State {
     isLoading?: boolean;
     cryptoCurrencies: Array<CryptoCurrencyData>;
     selectedCryptoCurrency: CryptoCurrencyData;
+    cryptoCurrency: CryptoCurrencyData;
 }
 
 export const initialState: State = {
     isLoading: false,
     cryptoCurrencies: [],
-    selectedCryptoCurrency: undefined
-};
+    selectedCryptoCurrency: undefined,
+    cryptoCurrency: undefined
+}
